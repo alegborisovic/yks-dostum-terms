@@ -4,208 +4,745 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kullanım Koşulları - Yks Dostum</title>
+    <meta name="description" content="Yks Dostum mobil uygulamasının kullanım koşulları ve şartları.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --blue-deep:    #0a1f5c;
+            --blue-primary: #1a56db;
+            --blue-mid:     #2d7cf6;
+            --blue-light:   #60a5fa;
+            --blue-pale:    #dbeafe;
+            --blue-ghost:   #eff6ff;
+            --white:        #ffffff;
+            --gray-100:     #f1f5f9;
+            --gray-200:     #e2e8f0;
+            --gray-400:     #94a3b8;
+            --gray-600:     #475569;
+            --gray-800:     #1e293b;
+            --shadow-sm:    0 1px 3px rgba(26,86,219,0.08), 0 1px 2px rgba(26,86,219,0.06);
+            --shadow-md:    0 4px 24px rgba(26,86,219,0.12), 0 2px 8px rgba(26,86,219,0.08);
+            --shadow-lg:    0 12px 48px rgba(26,86,219,0.18), 0 4px 16px rgba(26,86,219,0.10);
+            --radius-md:    12px;
+            --radius-lg:    20px;
+            --radius-xl:    28px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.8;
-            color: #333;
-            background: #f5f5f7;
-            padding: 20px;
+            color: var(--gray-800);
+            background: var(--blue-ghost);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+        /* ── Animated background blobs ── */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
         }
-        
-        h1 {
-            color: #667eea;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        body::before {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--blue-mid), transparent 70%);
+            top: -150px;
+            right: -150px;
+            animation: floatBlob1 14s ease-in-out infinite alternate;
+        }
+        body::after {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--blue-light), transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: floatBlob2 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatBlob1 {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(-40px, 60px) scale(1.1); }
+        }
+        @keyframes floatBlob2 {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(50px, -40px) scale(1.08); }
+        }
+
+        /* ── Header ── */
+        .site-header {
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-primary) 60%, var(--blue-mid) 100%);
+            padding: 56px 24px 80px;
             text-align: center;
+            overflow: hidden;
         }
-        
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 40px;
-            font-size: 1.1em;
+
+        .site-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--blue-ghost);
+            clip-path: ellipse(55% 100% at 50% 100%);
         }
-        
-        h2 {
-            color: #764ba2;
-            font-size: 1.8em;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
-        }
-        
-        h3 {
-            color: #667eea;
-            font-size: 1.3em;
-            margin-top: 25px;
-            margin-bottom: 10px;
-        }
-        
-        p {
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-        
-        ul, ol {
-            margin-left: 30px;
-            margin-bottom: 15px;
-        }
-        
-        li {
-            margin-bottom: 8px;
-        }
-        
-        .last-updated {
-            text-align: center;
-            color: #999;
-            font-size: 0.9em;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin-top: 30px;
-            color: #667eea;
-            text-decoration: none;
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #fff;
+            font-size: 0.78rem;
             font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 99px;
+            margin-bottom: 20px;
         }
-        
+
+        .header-badge svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .site-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .site-header .subtitle {
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 0.01em;
+        }
+
+        /* ── Progress bar ── */
+        .reading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue-light), var(--blue-mid));
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s linear;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* ── Main content wrapper ── */
+        .page-wrapper {
+            position: relative;
+            z-index: 5;
+            max-width: 860px;
+            margin: -20px auto 0;
+            padding: 0 20px 60px;
+        }
+
+        /* ── Last-updated pill ── */
+        .updated-pill {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: var(--gray-400);
+            font-weight: 500;
+            margin-bottom: 32px;
+        }
+
+        .updated-pill span {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--blue-light);
+        }
+
+        /* ── TOC Card ── */
+        .toc-card {
+            background: var(--white);
+            border: 1px solid var(--blue-pale);
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toc-card h2 {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--blue-primary);
+            margin-bottom: 16px;
+            border: none;
+            padding: 0;
+        }
+
+        .toc-list {
+            list-style: none;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 6px 16px;
+        }
+
+        .toc-list li a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            text-decoration: none;
+            padding: 5px 0;
+            transition: color 0.2s;
+        }
+
+        .toc-list li a:hover {
+            color: var(--blue-primary);
+        }
+
+        .toc-list li a::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--blue-pale);
+            border: 2px solid var(--blue-light);
+            flex-shrink: 0;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .toc-list li a:hover::before {
+            background: var(--blue-primary);
+            border-color: var(--blue-primary);
+        }
+
+        /* ── Section card ── */
+        .section-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px 40px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--blue-primary), var(--blue-light));
+            border-radius: 4px 0 0 4px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .section-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--blue-pale);
+            transform: translateY(-2px);
+        }
+
+        .section-card:hover::before {
+            opacity: 1;
+        }
+
+        /* ── Section number chip ── */
+        .section-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--blue-ghost);
+            color: var(--blue-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            flex-shrink: 0;
+        }
+
+        /* ── Headings inside cards ── */
+        .section-card h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--blue-deep);
+            margin-bottom: 14px;
+            margin-top: 0;
+            padding: 0;
+            border: none;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--blue-primary);
+            margin-top: 24px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-card h3::before {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 16px;
+            background: var(--blue-light);
+            border-radius: 2px;
+        }
+
+        /* ── Body text ── */
+        .section-card p {
+            font-size: 0.95rem;
+            color: var(--gray-600);
+            line-height: 1.85;
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        .section-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Lists ── */
+        .section-card ul,
+        .section-card ol {
+            margin: 0 0 14px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .section-card ul li,
+        .section-card ol li {
+            font-size: 0.95rem;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 10px;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .section-card ul li::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 11px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+        }
+
+        .section-card ol {
+            counter-reset: ol-counter;
+        }
+
+        .section-card ol li {
+            counter-increment: ol-counter;
+        }
+
+        .section-card ol li::before {
+            content: counter(ol-counter);
+            position: absolute;
+            left: 0;
+            top: 1px;
+            width: 20px;
+            height: 20px;
+            background: var(--blue-primary);
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        /* ── Highlight box (info) ── */
+        .info-box {
+            background: var(--blue-ghost);
+            border: 1px solid var(--blue-pale);
+            border-left: 4px solid var(--blue-primary);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+            color: var(--blue-deep);
+            line-height: 1.7;
+        }
+
+        /* ── Links ── */
+        a {
+            color: var(--blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        a:hover {
+            border-color: var(--blue-primary);
+        }
+
+        /* ── Contact card ── */
+        .contact-card {
+            background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-primary) 100%);
+            border-radius: var(--radius-lg);
+            padding: 36px 40px;
+            margin-bottom: 20px;
+            color: var(--white);
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-card h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .contact-card p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 20px;
+        }
+
+        .contact-email-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 12px 28px;
+            border-radius: 99px;
+            text-decoration: none;
+            border-bottom: none;
+            transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        .contact-email-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        /* ── Footer ── */
+        .site-footer {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 32px 24px 48px;
+            border-top: 1px solid var(--gray-200);
+            background: var(--white);
+        }
+
+        .site-footer p {
+            font-size: 0.85rem;
+            color: var(--gray-400);
+            margin-bottom: 12px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--blue-primary);
+            text-decoration: none;
+            border-bottom: none;
+            padding: 8px 18px;
+            border-radius: 99px;
+            border: 1.5px solid var(--blue-pale);
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
         .back-link:hover {
-            text-decoration: underline;
+            background: var(--blue-ghost);
+            border-color: var(--blue-light);
+            transform: translateX(-3px);
         }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .site-header {
+                padding: 44px 20px 70px;
             }
-            
-            h1 {
-                font-size: 2em;
+
+            .section-card {
+                padding: 24px 22px;
             }
-            
-            h2 {
-                font-size: 1.5em;
+
+            .toc-card {
+                padding: 22px 20px;
             }
+
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card {
+                padding: 28px 22px;
+            }
+        }
+
+        /* ── Fade-in animation on scroll ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📋 Kullanım Koşulları</h1>
-        <p class="subtitle">Yks Dostum Uygulaması</p>
-        
-        <p class="last-updated"><strong>Son Güncelleme:</strong> Ocak 2025</p>
-        
-        <h2>1. Genel Hükümler</h2>
-        <p>
-            Bu kullanım koşulları, Yks Dostum mobil uygulamasının ("Uygulama") kullanımını düzenler. 
-            Uygulamayı indirerek, yükleyerek veya kullanarak bu koşulları kabul etmiş sayılırsınız. 
-            Eğer bu koşulları kabul etmiyorsanız, lütfen uygulamayı kullanmayın.
-        </p>
-        
-        <h2>2. Uygulamanın Kullanımı</h2>
-        <h3>2.1. Lisans</h3>
-        <p>
-            Size, kişisel ve ticari olmayan amaçlarla uygulamayı kullanmak için sınırlı, 
-            devredilemez ve münhasır olmayan bir lisans verilmektedir.
-        </p>
-        
-        <h3>2.2. Kullanım Kısıtlamaları</h3>
-        <p>Aşağıdaki faaliyetler yasaktır:</p>
-        <ul>
-            <li>Uygulamayı yasadışı amaçlarla kullanmak</li>
-            <li>Uygulamanın kaynak kodunu tersine mühendislik yapmak, değiştirmek veya kopyalamak</li>
-            <li>Uygulamayı başka bir uygulama veya hizmetle birleştirmek</li>
-            <li>Uygulamanın güvenliğini veya işlevselliğini bozmaya çalışmak</li>
-            <li>Uygulamayı başkalarına yeniden satmak veya dağıtmak</li>
-        </ul>
-        
-        <h2>3. Kullanıcı Sorumlulukları</h2>
-        <p>
-            Uygulamayı kullanırken, uygulamanın sağladığı tüm bilgilerin doğruluğunu kontrol etmek 
-            sizin sorumluluğunuzdadır. Uygulama, eğitim amaçlı bir araçtır ve sınav sonuçlarınızı 
-            garanti etmez.
-        </p>
-        
-        <h2>4. Fikri Mülkiyet Hakları</h2>
-        <p>
-            Uygulama ve içeriği (tasarım, metin, grafik, logo, ikonlar vb.) telif hakkı ve diğer 
-            fikri mülkiyet yasalarıyla korunmaktadır. Tüm haklar saklıdır.
-        </p>
-        
-        <h2>5. Hizmet Kesintileri ve Değişiklikler</h2>
-        <p>
-            Uygulamanın kesintisiz çalışmasını garanti edemeyiz. Bakım, güncelleme veya teknik 
-            sorunlar nedeniyle hizmet geçici olarak kesintiye uğrayabilir. Uygulamanın özelliklerini 
-            önceden haber vermeksizin değiştirme, güncelleme veya durdurma hakkımız saklıdır.
-        </p>
-        
-        <h2>6. Reklamlar</h2>
-        <p>
-            Uygulama, ücretsiz kullanım için reklam içerebilir. Reklam içeriğinden uygulama 
-            geliştiricisi sorumlu değildir. Reklam verenlerin ürün veya hizmetlerinden uygulama 
-            geliştiricisi sorumlu tutulamaz.
-        </p>
-        
-        <h2>7. Sorumluluk Reddi</h2>
-        <p>
-            Uygulama "olduğu gibi" sağlanmaktadır. Uygulamanın kesintisiz, hatasız veya güvenli 
-            çalışacağını garanti etmiyoruz. Uygulamanın kullanımından kaynaklanan doğrudan veya 
-            dolaylı zararlardan sorumlu değiliz.
-        </p>
-        
-        <h2>8. Veri Kaybı</h2>
-        <p>
-            Uygulama içindeki verileriniz cihazınızda saklanmaktadır. Cihazınızı sıfırlama, 
-            uygulamayı silme veya cihaz değiştirme durumunda verileriniz kaybolabilir. 
-            Önemli verilerinizi düzenli olarak yedeklemenizi öneririz.
-        </p>
-        
-        <h2>9. Değişiklikler</h2>
-        <p>
-            Bu kullanım koşullarını istediğimiz zaman değiştirme hakkımız saklıdır. Önemli 
-            değişiklikler uygulama içinde bildirilecektir. Değişikliklerden sonra uygulamayı 
-            kullanmaya devam etmeniz, güncellenmiş koşulları kabul ettiğiniz anlamına gelir.
-        </p>
-        
-        <h2>10. İletişim</h2>
-        <p>
-            Kullanım koşulları hakkında sorularınız için bizimle iletişime geçebilirsiniz:
-        </p>
-        <p>
-            <strong>E-posta:</strong> <a href="mailto:emreaydemir480@icloud.com">emreaydemir480@icloud.com</a>
-        </p>
-        
-        <h2>11. Yürürlük</h2>
-        <p>
-            Bu kullanım koşulları, uygulamayı indirdiğiniz ve kullanmaya başladığınız andan itibaren 
-            yürürlüğe girer. Koşulları kabul etmiyorsanız, lütfen uygulamayı kullanmayın ve cihazınızdan kaldırın.
-        </p>
-        
-        <div class="last-updated">
-            <p>© 2025 Yks Dostum. Tüm hakları saklıdır.</p>
-            <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+
+    <!-- Reading progress bar -->
+    <div class="reading-bar" id="readingBar"></div>
+
+    <!-- ── HEADER ── -->
+    <header class="site-header">
+        <div class="header-badge">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+            Resmi Belge
         </div>
-    </div>
+        <h1>Kullanım Koşulları</h1>
+        <p class="subtitle">Yks Dostum Uygulaması</p>
+    </header>
+
+    <!-- ── MAIN ── -->
+    <main class="page-wrapper">
+
+        <!-- Updated pill -->
+        <div class="updated-pill">
+            <span></span>
+            <strong>Son Güncelleme:</strong>&nbsp;Ocak 2025
+        </div>
+
+        <!-- TOC -->
+        <div class="toc-card fade-up" id="toc">
+            <h2>İçindekiler</h2>
+            <ul class="toc-list">
+                <li><a href="#s1">1. Genel Hükümler</a></li>
+                <li><a href="#s2">2. Uygulamanın Kullanımı</a></li>
+                <li><a href="#s3">3. Kullanıcı Sorumlulukları</a></li>
+                <li><a href="#s4">4. Fikri Mülkiyet Hakları</a></li>
+                <li><a href="#s5">5. Hizmet Kesintileri</a></li>
+                <li><a href="#s6">6. Reklamlar</a></li>
+                <li><a href="#s7">7. Sorumluluk Reddi</a></li>
+                <li><a href="#s8">8. Veri Kaybı</a></li>
+                <li><a href="#s9">9. Değişiklikler</a></li>
+                <li><a href="#s10">10. İletişim</a></li>
+                <li><a href="#s11">11. Yürürlük</a></li>
+            </ul>
+        </div>
+
+        <!-- 1 -->
+        <article class="section-card fade-up" id="s1">
+            <h2><span class="section-num">1</span> Genel Hükümler</h2>
+            <p>
+                Bu kullanım koşulları, Yks Dostum mobil uygulamasının ("Uygulama") kullanımını düzenler.
+                Uygulamayı indirerek, yükleyerek veya kullanarak bu koşulları kabul etmiş sayılırsınız.
+                Eğer bu koşulları kabul etmiyorsanız, lütfen uygulamayı kullanmayın.
+            </p>
+        </article>
+
+        <!-- 2 -->
+        <article class="section-card fade-up" id="s2">
+            <h2><span class="section-num">2</span> Uygulamanın Kullanımı</h2>
+
+            <h3>2.1. Lisans</h3>
+            <p>
+                Size, kişisel ve ticari olmayan amaçlarla uygulamayı kullanmak için sınırlı,
+                devredilemez ve münhasır olmayan bir lisans verilmektedir.
+            </p>
+
+            <h3>2.2. Kullanım Kısıtlamaları</h3>
+            <p>Aşağıdaki faaliyetler yasaktır:</p>
+            <ul>
+                <li>Uygulamayı yasadışı amaçlarla kullanmak</li>
+                <li>Uygulamanın kaynak kodunu tersine mühendislik yapmak, değiştirmek veya kopyalamak</li>
+                <li>Uygulamayı başka bir uygulama veya hizmetle birleştirmek</li>
+                <li>Uygulamanın güvenliğini veya işlevselliğini bozmaya çalışmak</li>
+                <li>Uygulamayı başkalarına yeniden satmak veya dağıtmak</li>
+            </ul>
+        </article>
+
+        <!-- 3 -->
+        <article class="section-card fade-up" id="s3">
+            <h2><span class="section-num">3</span> Kullanıcı Sorumlulukları</h2>
+            <p>
+                Uygulamayı kullanırken, uygulamanın sağladığı tüm bilgilerin doğruluğunu kontrol etmek
+                sizin sorumluluğunuzdadır. Uygulama, eğitim amaçlı bir araçtır ve sınav sonuçlarınızı
+                garanti etmez.
+            </p>
+        </article>
+
+        <!-- 4 -->
+        <article class="section-card fade-up" id="s4">
+            <h2><span class="section-num">4</span> Fikri Mülkiyet Hakları</h2>
+            <p>
+                Uygulama ve içeriği (tasarım, metin, grafik, logo, ikonlar vb.) telif hakkı ve diğer
+                fikri mülkiyet yasalarıyla korunmaktadır. Tüm haklar saklıdır.
+            </p>
+        </article>
+
+        <!-- 5 -->
+        <article class="section-card fade-up" id="s5">
+            <h2><span class="section-num">5</span> Hizmet Kesintileri ve Değişiklikler</h2>
+            <p>
+                Uygulamanın kesintisiz çalışmasını garanti edemeyiz. Bakım, güncelleme veya teknik
+                sorunlar nedeniyle hizmet geçici olarak kesintiye uğrayabilir. Uygulamanın özelliklerini
+                önceden haber vermeksizin değiştirme, güncelleme veya durdurma hakkımız saklıdır.
+            </p>
+        </article>
+
+        <!-- 6 -->
+        <article class="section-card fade-up" id="s6">
+            <h2><span class="section-num">6</span> Reklamlar</h2>
+            <p>
+                Uygulama, ücretsiz kullanım için reklam içerebilir. Reklam içeriğinden uygulama
+                geliştiricisi sorumlu değildir. Reklam verenlerin ürün veya hizmetlerinden uygulama
+                geliştiricisi sorumlu tutulamaz.
+            </p>
+        </article>
+
+        <!-- 7 -->
+        <article class="section-card fade-up" id="s7">
+            <h2><span class="section-num">7</span> Sorumluluk Reddi</h2>
+            <div class="info-box">
+                Uygulama "olduğu gibi" sağlanmaktadır. Uygulamanın kesintisiz, hatasız veya güvenli
+                çalışacağını garanti etmiyoruz. Uygulamanın kullanımından kaynaklanan doğrudan veya
+                dolaylı zararlardan sorumlu değiliz.
+            </div>
+        </article>
+
+        <!-- 8 -->
+        <article class="section-card fade-up" id="s8">
+            <h2><span class="section-num">8</span> Veri Kaybı</h2>
+            <p>
+                Uygulama içindeki verileriniz cihazınızda saklanmaktadır. Cihazınızı sıfırlama,
+                uygulamayı silme veya cihaz değiştirme durumunda verileriniz kaybolabilir.
+                Önemli verilerinizi düzenli olarak yedeklemenizi öneririz.
+            </p>
+        </article>
+
+        <!-- 9 -->
+        <article class="section-card fade-up" id="s9">
+            <h2><span class="section-num">9</span> Değişiklikler</h2>
+            <p>
+                Bu kullanım koşullarını istediğimiz zaman değiştirme hakkımız saklıdır. Önemli
+                değişiklikler uygulama içinde bildirilecektir. Değişikliklerden sonra uygulamayı
+                kullanmaya devam etmeniz, güncellenmiş koşulları kabul ettiğiniz anlamına gelir.
+            </p>
+        </article>
+
+        <!-- 10 – Contact -->
+        <div class="contact-card fade-up" id="s10">
+            <h2>10. İletişim</h2>
+            <p>Kullanım koşulları hakkında sorularınız için bizimle iletişime geçebilirsiniz:</p>
+            <a href="mailto:emreaydemir480@icloud.com" class="contact-email-btn">
+                ✉️ emreaydemir480@icloud.com
+            </a>
+        </div>
+
+        <!-- 11 -->
+        <article class="section-card fade-up" id="s11">
+            <h2><span class="section-num">11</span> Yürürlük</h2>
+            <p>
+                Bu kullanım koşulları, uygulamayı indirdiğiniz ve kullanmaya başladığınız andan itibaren
+                yürürlüğe girer. Koşulları kabul etmiyorsanız, lütfen uygulamayı kullanmayın ve cihazınızdan kaldırın.
+            </p>
+        </article>
+
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer class="site-footer">
+        <p>© 2025 Yks Dostum. Tüm hakları saklıdır.</p>
+        <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+    </footer>
+
+    <script>
+        // Reading progress bar
+        const bar = document.getElementById('readingBar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+            bar.style.width = pct + '%';
+        });
+
+        // Fade-up on scroll (IntersectionObserver)
+        const fadeEls = document.querySelectorAll('.fade-up');
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.transitionDelay = (i * 0.04) + 's';
+                    entry.target.classList.add('visible');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeEls.forEach(el => io.observe(el));
+    </script>
+
 </body>
 </html>
-
